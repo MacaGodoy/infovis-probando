@@ -16,17 +16,18 @@ async function fetchData() {
         const brand = cols[0];
         const year1 = parseFloat(cols[1]);
         const year2 = parseFloat(cols[2]);
-        const year3 = parseFloat(cols[3]);  // New 2020 value
+        const year3 = parseFloat(cols[3]);
+        const year4 = parseFloat(cols[4]); 
 
-        if (!isNaN(year1) && !isNaN(year2) && !isNaN(year3) && brand) {
+        if (!isNaN(year1) && !isNaN(year2) && !isNaN(year3) && !isNaN(year4) && brand) {
             traces.push({
-                x: ['2010', '2015', '2020'],
-                y: [year1, year2, year3],
+                x: ['2010', '2015', '2020', '2024'],
+                y: [year1, year2, year3, year4],
                 name: brand,
                 type: 'scatter',
                 mode: 'lines+markers',
                 line: { shape: 'linear', color: colors[index % colors.length], width: 3 },
-                marker: { size: 8, symbol: ['circle', 'square', 'triangle'] }
+                marker: { size: 8, symbol: ['circle', 'square', 'triangle', 'diamond'] }
             });
 
             // Annotations for 2010, 2015, and 2020
@@ -60,6 +61,16 @@ async function fetchData() {
                     showarrow: false,
                     font: { color: 'black', size: 12 },
                     xanchor: 'left'
+                },
+                {
+                    x: '2024',
+                    y: year4,
+                    xref: 'x',
+                    yref: 'y',
+                    text: ` ${Math.round(year4)}`,
+                    showarrow: false,
+                    font: { color: 'black', size: 12 },
+                    xanchor: 'left'
                 }
             );
         }
@@ -72,7 +83,7 @@ fetchData().then(({ traces, annotations }) => {
     const layout = {
         title: 'Azúcares en Cereales [g/100g]',
         xaxis: {
-            tickvals: ['2010', '2012', '2015', '2016', '2020'],  // Include 2020
+            tickvals: ['2010', '2012', '2015', '2016', '2020', '2024'],  // Include 2020
             tickmode: 'array'
         },
         yaxis: {
